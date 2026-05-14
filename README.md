@@ -1,7 +1,8 @@
 # Disease Outbreak Early Warning System
 
-A machine learning system that detects disease outbreak risk from 
-historical case trends — before the situation becomes uncontrollable.
+A machine learning system built on time-series epidemiological data 
+that detects disease outbreak risk from historical case trends, 
+before the situation becomes uncontrollable.
 
 [Live Demo](https://disease-outbreak-predictor-edcguujkj9xgstqnvcyz8a.streamlit.app/) · [Notebook](outbreak_eda.ipynb)
 
@@ -11,7 +12,7 @@ historical case trends — before the situation becomes uncontrollable.
 
 By the time a disease outbreak is obvious, containment is already 
 difficult. Case counts are rising, healthcare systems are overwhelmed, 
-and response teams are playing catch-up.
+and response teams are playing catch up.
 
 The goal of this project was simple: **can we detect the warning signs 
 early enough to actually do something about it?**
@@ -33,8 +34,12 @@ are driving the prediction.
 ---
 
 ## How It Works
+The core challenge with time-series disease data is that you cannot 
+use a random train/test split doing so would leak future information 
+into training. I used a time-based split instead, training on the 
+peak outbreak period and testing on the declining tail.
 
-Raw case data is cumulative — so the first thing I had to do was 
+Raw case data is cumulative so the first thing I had to do was 
 derive weekly new cases by taking the difference per country over 
 time. From there I engineered features that capture what actually 
 precedes an outbreak:
@@ -46,7 +51,7 @@ precedes an outbreak:
 - **Season & week of year** — temporal patterns
 
 Defining the target variable was the most interesting challenge. 
-I couldn't just use raw case counts — I had to decide what "outbreak" 
+I couldn't just use raw case counts, I had to decide what "outbreak" 
 actually means in the data. I landed on:
 
 > A week is an outbreak if new cases exceed 2× the 4-week rolling 
@@ -70,7 +75,7 @@ I trained three models and compared them on **recall** — not accuracy.
 
 Random Forest had the best AUC but missed 17 out of 32 real outbreaks. 
 In a disease detection system, a missed outbreak is far more dangerous 
-than a false alarm — so I chose the tuned Decision Tree which missed 
+than a false alarm so I chose the tuned Decision Tree which missed 
 only 3.
 
 Tuning with `RandomizedSearchCV` (scoring='recall') found that a 
@@ -89,7 +94,7 @@ correctly detected outbreak, this single feature pushed the probability
 from 50% to 95.7%.
 
 This makes epidemiological sense. It's not the absolute number of 
-cases that signals danger — it's the acceleration.
+cases that signals danger, it's the acceleration.
 
 ---
 
@@ -97,7 +102,7 @@ cases that signals danger — it's the acceleration.
 
 - **Recall: 90.6%** — catches 29 out of 32 real outbreaks on test data
 - **ROC-AUC: 0.933**
-- Test period: June 2015 – March 2016 (the declining phase of the epidemic — the hardest period to evaluate on)
+- Test period: June 2015 – March 2016 (the declining phase of the epidemic,the hardest period to evaluate on)
 
 ---
 
