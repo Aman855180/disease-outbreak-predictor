@@ -108,10 +108,13 @@ Python · scikit-learn · pandas · SHAP · Streamlit · Plotly · joblib
 ---
 
 ## Project Structure
-# disease-outbreak-predictor/
+
+````
+disease-outbreak-predictor/
 ├── app.py                      # Streamlit dashboard
 ├── outbreak_eda.ipynb          # Full analysis — EDA, features, models, SHAP
 ├── outbreak_model.pkl          # Trained Decision Tree
 ├── scaler.pkl                  # Fitted StandardScaler
 ├── feature_cols.json           # Feature column names
 └── ebola_2014_2016_clean.csv   # Cleaned WHO dataset
+````
