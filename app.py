@@ -22,8 +22,8 @@ st.set_page_config(
     layout="wide"
 )
 
-# Full path of project folder
-BASE_DIR = r'C:\Outbreak_project'
+
+BASE_DIR = os.path.dirname(os.path.abspath(__file__)) 
 
 @st.cache_resource
 def load_model():
