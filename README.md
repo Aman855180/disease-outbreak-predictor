@@ -118,3 +118,18 @@ disease-outbreak-predictor/
 ├── feature_cols.json           # Feature column names
 └── ebola_2014_2016_clean.csv   # Cleaned WHO dataset
 ````
+---
+
+## Key Learnings
+
+Defining the target variable took longer than training the model. 
+Getting the threshold right — domain-driven, not data-driven — 
+was the most important decision in the entire project.
+
+Also: a model that scores 99% accuracy on an imbalanced dataset 
+can be completely useless. Always look at what the model is actually 
+getting wrong.
+
+---
+
+*Built by Aman Kumar*
